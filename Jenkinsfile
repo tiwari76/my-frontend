@@ -2,16 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/tiwari76/web-project.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t tiwari76/web-project:latest .'
+                sh 'docker build -t tiwari76/my-frontend:latest .'
             }
         }
 
@@ -19,7 +12,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker push tiwari76/web-project:latest'
+                    sh 'docker push tiwari76/my-frontend:latest'
                 }
             }
         }
