@@ -1,11 +1,14 @@
-FROM node:18-alpine as build
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-
 FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
+COPY index.html /usr/share/nginx/html/index.html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
+```
+
+**Step 3 — Commit both files on GitHub**
+
+After adding both files, your repo should look like:
+```
+web-project/
+├── index.html
+├── Dockerfile
+└── Jenkinsfile
