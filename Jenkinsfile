@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t tiwari76/my-frontend:latest .'
+                sh 'docker build -t sonu942/my-frontend:latest .'
             }
         }
 
@@ -12,7 +12,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker push tiwari76/my-frontend:latest'
+                    sh 'docker push sonu942/my-frontend:latest'
                 }
             }
         }
